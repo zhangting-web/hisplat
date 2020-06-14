@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.hisplat.dao.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.hisplat.bean.Department" >
+    <id column="d_id" property="dId" jdbcType="INTEGER" />
+    <result column="d_name" property="dName" jdbcType="VARCHAR" />
+    <result column="d_num" property="dNum" jdbcType="INTEGER" />
+    <result column="d_tel" property="dTel" jdbcType="VARCHAR" />
+    <result column="d_level_id" property="dLevelId" jdbcType="INTEGER" />
+    <result column="h_id" property="hId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    d_id, d_name, d_num, d_tel, d_level_id, h_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from department
+    where d_id = #{dId,jdbcType=INTEGER}
+  </select>
+  <select id="selectListBy" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from department
+    where h_id = #{hId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from department
+    where d_id = #{dId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mh.hisplat.bean.Department" >
+    insert into department (d_id, d_name, d_num, 
+      d_tel, d_level_id, h_id
+      )
+    values (#{dId,jdbcType=INTEGER}, #{dName,jdbcType=VARCHAR}, #{dNum,jdbcType=INTEGER}, 
+      #{dTel,jdbcType=VARCHAR}, #{dLevelId,jdbcType=INTEGER}, #{hId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.hisplat.bean.Department" >
+    insert into department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        d_id,
+      </if>
+      <if test="dName != null" >
+        d_name,
+      </if>
+      <if test="dNum != null" >
+        d_num,
+      </if>
+      <if test="dTel != null" >
+        d_tel,
+      </if>
+      <if test="dLevelId != null" >
+        d_level_id,
+      </if>
+      <if test="hId != null" >
+        h_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="dName != null" >
+        #{dName,jdbcType=VARCHAR},
+      </if>
+      <if test="dNum != null" >
+        #{dNum,jdbcType=INTEGER},
+      </if>
+      <if test="dTel != null" >
+        #{dTel,jdbcType=VARCHAR},
+      </if>
+      <if test="dLevelId != null" >
+        #{dLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="hId != null" >
+        #{hId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.hisplat.bean.Department" >
+    update department
+    <set >
+      <if test="dName != null" >
+        d_name = #{dName,jdbcType=VARCHAR},
+      </if>
+      <if test="dNum != null" >
+        d_num = #{dNum,jdbcType=INTEGER},
+      </if>
+      <if test="dTel != null" >
+        d_tel = #{dTel,jdbcType=VARCHAR},
+      </if>
+      <if test="dLevelId != null" >
+        d_level_id = #{dLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="hId != null" >
+        h_id = #{hId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where d_id = #{dId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.hisplat.bean.Department" >
+    update department
+    set d_name = #{dName,jdbcType=VARCHAR},
+      d_num = #{dNum,jdbcType=INTEGER},
+      d_tel = #{dTel,jdbcType=VARCHAR},
+      d_level_id = #{dLevelId,jdbcType=INTEGER},
+      h_id = #{hId,jdbcType=INTEGER}
+    where d_id = #{dId,jdbcType=INTEGER}
+  </update>
+</mapper>

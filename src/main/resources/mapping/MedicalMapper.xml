@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.hisplat.dao.MedicalMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.hisplat.bean.Medical" >
+    <id column="m_id" property="mId" jdbcType="INTEGER" />
+    <result column="m_name" property="mName" jdbcType="VARCHAR" />
+    <result column="r_id" property="rId" jdbcType="VARCHAR" />
+    <result column="m_sex" property="mSex" jdbcType="INTEGER" />
+    <result column="m_age" property="mAge" jdbcType="INTEGER" />
+    <result column="m_date" property="mDate" jdbcType="DATE" />
+    <result column="m_phone" property="mPhone" jdbcType="VARCHAR" />
+    <result column="m_address" property="mAddress" jdbcType="VARCHAR" />
+    <result column="d_id" property="dId" jdbcType="INTEGER" />
+    <result column="m_allergy_his" property="mAllergyHis" jdbcType="VARCHAR" />
+    <result column="doc_id" property="docId" jdbcType="INTEGER" />
+    <result column="diagnostic_report_url" property="diagnosticReportUrl" jdbcType="VARCHAR" />
+    <result column="m_type" property="mType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.mh.hisplat.bean.MedicalWithBLOBs" extends="BaseResultMap" >
+    <result column="m_patient_condition" property="mPatientCondition" jdbcType="LONGVARCHAR" />
+    <result column="medication_info" property="medicationInfo" jdbcType="LONGVARCHAR" />
+    <result column="mark" property="mark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    m_id, m_name, r_id, m_sex, m_age, m_date, m_phone, m_address, d_id, m_allergy_his, 
+    doc_id, diagnostic_report_url, m_type,create_time,update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    m_patient_condition, medication_info, mark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from medical
+    where m_id = #{mId,jdbcType=INTEGER}
+  </select>
+  <select id="selectList" resultMap="ResultMapWithBLOBs"  >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from medical
+    <where>
+      <if test="mName != null" >
+        and m_name= #{mName}
+      </if>
+      <if test="mDate != null" >
+        and m_date=#{mDate}
+      </if>
+    </where>
+  </select>
+  <select id="selectByList" resultMap="ResultMapWithBLOBs"  >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from medical
+    <where>
+      <if test="mName != null" >
+        and m_name= #{mName}
+      </if>
+      <if test="mDate != null" >
+        and m_date=#{mDate}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from medical
+    where m_id = #{mId,jdbcType=INTEGER}
+  </delete>
+  <delete id="del"  >
+    delete from medical
+    <where>
+      <if test="ids !=null">
+        and m_id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+    </where>
+  </delete>
+  <insert id="insert" parameterType="com.mh.hisplat.bean.MedicalWithBLOBs" >
+    insert into medical ( m_name, r_id,
+      m_sex, m_age, m_date, m_phone, 
+      m_address, d_id, m_allergy_his, 
+      doc_id, diagnostic_report_url, m_type, 
+      m_patient_condition, medication_info, 
+      mark,create_time,update_time)
+    values ( #{mName,jdbcType=VARCHAR}, #{rId,jdbcType=VARCHAR},
+      #{mSex,jdbcType=INTEGER}, #{mAge,jdbcType=INTEGER}, #{mDate,jdbcType=DATE}, #{mPhone,jdbcType=VARCHAR}, 
+      #{mAddress,jdbcType=VARCHAR}, #{dId,jdbcType=INTEGER}, #{mAllergyHis,jdbcType=VARCHAR}, 
+      #{docId,jdbcType=INTEGER}, #{diagnosticReportUrl,jdbcType=VARCHAR}, #{mType,jdbcType=INTEGER}, 
+      #{mPatientCondition,jdbcType=LONGVARCHAR}, #{medicationInfo,jdbcType=LONGVARCHAR}, 
+      #{mark,jdbcType=LONGVARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.hisplat.bean.MedicalWithBLOBs" >
+    insert into medical
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="mName != null" >
+        m_name,
+      </if>
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="mSex != null" >
+        m_sex,
+      </if>
+      <if test="mAge != null" >
+        m_age,
+      </if>
+      <if test="mDate != null" >
+        m_date,
+      </if>
+      <if test="mPhone != null" >
+        m_phone,
+      </if>
+      <if test="mAddress != null" >
+        m_address,
+      </if>
+      <if test="dId != null" >
+        d_id,
+      </if>
+      <if test="mAllergyHis != null" >
+        m_allergy_his,
+      </if>
+      <if test="docId != null" >
+        doc_id,
+      </if>
+      <if test="diagnosticReportUrl != null" >
+        diagnostic_report_url,
+      </if>
+      <if test="mType != null" >
+        m_type,
+      </if>
+      <if test="mPatientCondition != null" >
+        m_patient_condition,
+      </if>
+      <if test="medicationInfo != null" >
+        medication_info,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mId != null" >
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="mName != null" >
+        #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="rId != null" >
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="mSex != null" >
+        #{mSex,jdbcType=INTEGER},
+      </if>
+      <if test="mAge != null" >
+        #{mAge,jdbcType=INTEGER},
+      </if>
+      <if test="mDate != null" >
+        #{mDate,jdbcType=DATE},
+      </if>
+      <if test="mPhone != null" >
+        #{mPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="mAddress != null" >
+        #{mAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dId != null" >
+        #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="mAllergyHis != null" >
+        #{mAllergyHis,jdbcType=VARCHAR},
+      </if>
+      <if test="docId != null" >
+        #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="diagnosticReportUrl != null" >
+        #{diagnosticReportUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mType != null" >
+        #{mType,jdbcType=INTEGER},
+      </if>
+      <if test="mPatientCondition != null" >
+        #{mPatientCondition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="medicationInfo != null" >
+        #{medicationInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.hisplat.bean.MedicalWithBLOBs" >
+    update medical
+    <set >
+      <if test="mName != null" >
+        m_name = #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="rId != null" >
+        r_id = #{rId,jdbcType=VARCHAR},
+      </if>
+      <if test="mSex != null" >
+        m_sex = #{mSex,jdbcType=INTEGER},
+      </if>
+      <if test="mAge != null" >
+        m_age = #{mAge,jdbcType=INTEGER},
+      </if>
+      <if test="mDate != null" >
+        m_date = #{mDate,jdbcType=DATE},
+      </if>
+      <if test="mPhone != null" >
+        m_phone = #{mPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="mAddress != null" >
+        m_address = #{mAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dId != null" >
+        d_id = #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="mAllergyHis != null" >
+        m_allergy_his = #{mAllergyHis,jdbcType=VARCHAR},
+      </if>
+      <if test="docId != null" >
+        doc_id = #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="diagnosticReportUrl != null" >
+        diagnostic_report_url = #{diagnosticReportUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mType != null" >
+        m_type = #{mType,jdbcType=INTEGER},
+      </if>
+      <if test="mPatientCondition != null" >
+        m_patient_condition = #{mPatientCondition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="medicationInfo != null" >
+        medication_info = #{medicationInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mh.hisplat.bean.MedicalWithBLOBs" >
+    update medical
+    set m_name = #{mName,jdbcType=VARCHAR},
+      r_id = #{rId,jdbcType=VARCHAR},
+      m_sex = #{mSex,jdbcType=INTEGER},
+      m_age = #{mAge,jdbcType=INTEGER},
+      m_date = #{mDate,jdbcType=DATE},
+      m_phone = #{mPhone,jdbcType=VARCHAR},
+      m_address = #{mAddress,jdbcType=VARCHAR},
+      d_id = #{dId,jdbcType=INTEGER},
+      m_allergy_his = #{mAllergyHis,jdbcType=VARCHAR},
+      doc_id = #{docId,jdbcType=INTEGER},
+      diagnostic_report_url = #{diagnosticReportUrl,jdbcType=VARCHAR},
+      m_type = #{mType,jdbcType=INTEGER},
+      m_patient_condition = #{mPatientCondition,jdbcType=LONGVARCHAR},
+      medication_info = #{medicationInfo,jdbcType=LONGVARCHAR},
+      mark = #{mark,jdbcType=LONGVARCHAR}
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.hisplat.bean.Medical" >
+    update medical
+    set m_name = #{mName,jdbcType=VARCHAR},
+      r_id = #{rId,jdbcType=VARCHAR},
+      m_sex = #{mSex,jdbcType=INTEGER},
+      m_age = #{mAge,jdbcType=INTEGER},
+      m_date = #{mDate,jdbcType=DATE},
+      m_phone = #{mPhone,jdbcType=VARCHAR},
+      m_address = #{mAddress,jdbcType=VARCHAR},
+      d_id = #{dId,jdbcType=INTEGER},
+      m_allergy_his = #{mAllergyHis,jdbcType=VARCHAR},
+      doc_id = #{docId,jdbcType=INTEGER},
+      diagnostic_report_url = #{diagnosticReportUrl,jdbcType=VARCHAR},
+      m_type = #{mType,jdbcType=INTEGER}
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+</mapper>

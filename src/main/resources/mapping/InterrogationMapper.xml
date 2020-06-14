@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.hisplat.dao.InterrogationMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.hisplat.bean.Interrogation" >
+    <id column="in_id" property="inId" jdbcType="INTEGER" />
+    <result column="in_name" property="inName" jdbcType="VARCHAR" />
+    <result column="in_sex" property="inSex" jdbcType="INTEGER" />
+    <result column="in_problem" property="inProblem" jdbcType="VARCHAR" />
+    <result column="in_cardinal_symptom" property="inCardinalSymptom" jdbcType="VARCHAR" />
+    <result column="in_medicine" property="inMedicine" jdbcType="VARCHAR" />
+    <result column="in_need" property="inNeed" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    in_id, in_name, in_sex, in_problem, in_cardinal_symptom, in_medicine, in_need
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from interrogation
+    where in_id = #{inId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from interrogation
+    where in_id = #{inId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mh.hisplat.bean.Interrogation" >
+    insert into interrogation (in_id, in_name, in_sex, 
+      in_problem, in_cardinal_symptom, in_medicine, 
+      in_need)
+    values (#{inId,jdbcType=INTEGER}, #{inName,jdbcType=VARCHAR}, #{inSex,jdbcType=INTEGER}, 
+      #{inProblem,jdbcType=VARCHAR}, #{inCardinalSymptom,jdbcType=VARCHAR}, #{inMedicine,jdbcType=VARCHAR}, 
+      #{inNeed,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.hisplat.bean.Interrogation" >
+    insert into interrogation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inId != null" >
+        in_id,
+      </if>
+      <if test="inName != null" >
+        in_name,
+      </if>
+      <if test="inSex != null" >
+        in_sex,
+      </if>
+      <if test="inProblem != null" >
+        in_problem,
+      </if>
+      <if test="inCardinalSymptom != null" >
+        in_cardinal_symptom,
+      </if>
+      <if test="inMedicine != null" >
+        in_medicine,
+      </if>
+      <if test="inNeed != null" >
+        in_need,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inId != null" >
+        #{inId,jdbcType=INTEGER},
+      </if>
+      <if test="inName != null" >
+        #{inName,jdbcType=VARCHAR},
+      </if>
+      <if test="inSex != null" >
+        #{inSex,jdbcType=INTEGER},
+      </if>
+      <if test="inProblem != null" >
+        #{inProblem,jdbcType=VARCHAR},
+      </if>
+      <if test="inCardinalSymptom != null" >
+        #{inCardinalSymptom,jdbcType=VARCHAR},
+      </if>
+      <if test="inMedicine != null" >
+        #{inMedicine,jdbcType=VARCHAR},
+      </if>
+      <if test="inNeed != null" >
+        #{inNeed,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.hisplat.bean.Interrogation" >
+    update interrogation
+    <set >
+      <if test="inName != null" >
+        in_name = #{inName,jdbcType=VARCHAR},
+      </if>
+      <if test="inSex != null" >
+        in_sex = #{inSex,jdbcType=INTEGER},
+      </if>
+      <if test="inProblem != null" >
+        in_problem = #{inProblem,jdbcType=VARCHAR},
+      </if>
+      <if test="inCardinalSymptom != null" >
+        in_cardinal_symptom = #{inCardinalSymptom,jdbcType=VARCHAR},
+      </if>
+      <if test="inMedicine != null" >
+        in_medicine = #{inMedicine,jdbcType=VARCHAR},
+      </if>
+      <if test="inNeed != null" >
+        in_need = #{inNeed,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where in_id = #{inId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.hisplat.bean.Interrogation" >
+    update interrogation
+    set in_name = #{inName,jdbcType=VARCHAR},
+      in_sex = #{inSex,jdbcType=INTEGER},
+      in_problem = #{inProblem,jdbcType=VARCHAR},
+      in_cardinal_symptom = #{inCardinalSymptom,jdbcType=VARCHAR},
+      in_medicine = #{inMedicine,jdbcType=VARCHAR},
+      in_need = #{inNeed,jdbcType=VARCHAR}
+    where in_id = #{inId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.hisplat.dao.PrescriptionMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.hisplat.bean.Prescription" >
+    <id column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="p_name" property="pName" jdbcType="VARCHAR" />
+    <result column="p_sex" property="pSex" jdbcType="INTEGER" />
+    <result column="p_age" property="pAge" jdbcType="INTEGER" />
+    <result column="bed_no" property="bedNo" jdbcType="INTEGER" />
+    <result column="nurse_id" property="nurseId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.mh.hisplat.bean.Prescription" extends="BaseResultMap" >
+    <result column="p_prescription" property="pPrescription" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    p_id, p_name, p_sex, p_age, bed_no, nurse_id, create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    p_prescription
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from prescription
+    where p_id = #{pId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from prescription
+    where p_id = #{pId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mh.hisplat.bean.Prescription" >
+    insert into prescription (p_id, p_name, p_sex, 
+      p_age, bed_no, nurse_id, 
+      create_time, p_prescription)
+    values (#{pId,jdbcType=INTEGER}, #{pName,jdbcType=VARCHAR}, #{pSex,jdbcType=INTEGER}, 
+      #{pAge,jdbcType=INTEGER}, #{bedNo,jdbcType=INTEGER}, #{nurseId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{pPrescription,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.hisplat.bean.Prescription" >
+    insert into prescription
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        p_id,
+      </if>
+      <if test="pName != null" >
+        p_name,
+      </if>
+      <if test="pSex != null" >
+        p_sex,
+      </if>
+      <if test="pAge != null" >
+        p_age,
+      </if>
+      <if test="bedNo != null" >
+        bed_no,
+      </if>
+      <if test="nurseId != null" >
+        nurse_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="pPrescription != null" >
+        p_prescription,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null" >
+        #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pSex != null" >
+        #{pSex,jdbcType=INTEGER},
+      </if>
+      <if test="pAge != null" >
+        #{pAge,jdbcType=INTEGER},
+      </if>
+      <if test="bedNo != null" >
+        #{bedNo,jdbcType=INTEGER},
+      </if>
+      <if test="nurseId != null" >
+        #{nurseId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pPrescription != null" >
+        #{pPrescription,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.hisplat.bean.Prescription" >
+    update prescription
+    <set >
+      <if test="pName != null" >
+        p_name = #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pSex != null" >
+        p_sex = #{pSex,jdbcType=INTEGER},
+      </if>
+      <if test="pAge != null" >
+        p_age = #{pAge,jdbcType=INTEGER},
+      </if>
+      <if test="bedNo != null" >
+        bed_no = #{bedNo,jdbcType=INTEGER},
+      </if>
+      <if test="nurseId != null" >
+        nurse_id = #{nurseId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pPrescription != null" >
+        p_prescription = #{pPrescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mh.hisplat.bean.Prescription" >
+    update prescription
+    set p_name = #{pName,jdbcType=VARCHAR},
+      p_sex = #{pSex,jdbcType=INTEGER},
+      p_age = #{pAge,jdbcType=INTEGER},
+      bed_no = #{bedNo,jdbcType=INTEGER},
+      nurse_id = #{nurseId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      p_prescription = #{pPrescription,jdbcType=LONGVARCHAR}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.hisplat.bean.Prescription" >
+    update prescription
+    set p_name = #{pName,jdbcType=VARCHAR},
+      p_sex = #{pSex,jdbcType=INTEGER},
+      p_age = #{pAge,jdbcType=INTEGER},
+      bed_no = #{bedNo,jdbcType=INTEGER},
+      nurse_id = #{nurseId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+</mapper>

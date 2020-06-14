@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.hisplat.dao.HInMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.hisplat.bean.HIn" >
+    <id column="in_id" property="inId" jdbcType="INTEGER" />
+    <result column="in_name" property="inName" jdbcType="VARCHAR" />
+    <result column="m_id" property="mId" jdbcType="INTEGER" />
+    <result column="in_state" property="inState" jdbcType="INTEGER" />
+    <result column="in_sex" property="inSex" jdbcType="INTEGER" />
+    <result column="in_age" property="inAge" jdbcType="INTEGER" />
+    <result column="in_date" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="bed_no" property="bedNo" jdbcType="INTEGER" />
+    <result column="doc_id" property="docId" jdbcType="INTEGER" />
+    <result column="nurse_id" property="nurseId" jdbcType="INTEGER" />
+    <result column="pre_out_time" property="preOutTime" jdbcType="TIMESTAMP" />
+    <result column="out_time" property="outTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="in_phone" property="inPhone" jdbcType="VARCHAR" />
+    <result column="m_allergy_his" property="mAllergyHis" jdbcType="VARCHAR" />
+    <result column="diagnostic_report_url" property="diagnosticReportUrl" jdbcType="VARCHAR" />
+    <result column="m_patient_condition" property="mPatientCondition" jdbcType="LONGVARCHAR" />
+    <result column="medication_info" property="medicationInfo"  jdbcType="LONGVARCHAR"/>
+    <result column="mark" property="mark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    in_id,in_name, m_id, in_state, in_sex, in_age, in_date, bed_no, doc_id, nurse_id, pre_out_time,
+    out_time, create_time, update_time,in_phone,m_allergy_his,diagnostic_report_url,m_patient_condition,medication_info,
+    mark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from h_in
+    where in_id = #{inId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from h_in
+    where in_id = #{inId,jdbcType=INTEGER}
+  </delete>
+  <delete id="del"  >
+    delete from h_in
+    <where>
+      <if test="ids !=null">
+        and in_id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+    </where>
+  </delete>
+  <select id="selectList" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from h_in
+    <where>
+      <if test="inName != null" >
+        and in_name= #{inName}
+      </if>
+      <if test="inDate != null" >
+        and in_date=#{inDate}
+      </if>
+      <if test="mId != null" >
+        and m_id = #{mId}
+      </if>
+      <if test="inState != null" >
+        and in_state = #{inState}
+      </if>
+      <if test="inSex != null" >
+        and in_sex = #{inSex}
+      </if>
+      <if test="inAge != null" >
+        and in_age = #{inAge}
+      </if>
+      <if test="bedNo != null" >
+        and bed_no = #{bedNo}
+      </if>
+      <if test="docId != null" >
+        and doc_id = #{docId}
+      </if>
+      <if test="nurseId != null" >
+        and nurse_id = #{nurseId}
+      </if>
+      <if test="preOutTime != null" >
+        and pre_out_time = #{preOutTime},
+      </if>
+      <if test="outTime != null" >
+        and out_time = #{outTime}
+      </if>
+    </where>
+  </select>
+  <insert id="insert" parameterType="com.mh.hisplat.bean.HIn" >
+    insert into h_in (in_name ,m_id, in_state,
+      in_sex, in_age, in_date, 
+      bed_no, doc_id, nurse_id, 
+      pre_out_time, out_time, create_time, in_phone,
+      update_time,m_allergy_his,diagnostic_report_url,m_patient_condition,medication_info,
+    mark)
+    values (#{inName,jdbcType=VARCHAR}, #{mId,jdbcType=INTEGER},
+     #{inState,jdbcType=INTEGER}, #{inSex,jdbcType=INTEGER}, #{inAge,jdbcType=INTEGER}, #{inDate,jdbcType=TIMESTAMP},
+      #{bedNo,jdbcType=INTEGER}, #{docId,jdbcType=INTEGER}, #{nurseId,jdbcType=INTEGER}, 
+      #{preOutTime,jdbcType=TIMESTAMP}, #{outTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{inPhone,jdbcType=VARCHAR},
+      #{updateTime,jdbcType=TIMESTAMP}, #{mAllergyHis,jdbcType=VARCHAR},
+      #{diagnosticReportUrl,jdbcType=VARCHAR},
+      #{mPatientCondition,jdbcType=LONGVARCHAR}, #{medicationInfo,jdbcType=LONGVARCHAR},
+      #{mark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.hisplat.bean.HIn" >
+    insert into h_in
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inId != null" >
+        in_id,
+      </if>
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="inState != null" >
+        in_state,
+      </if>
+      <if test="inSex != null" >
+        in_sex,
+      </if>
+      <if test="inAge != null" >
+        in_age,
+      </if>
+      <if test="inDate != null" >
+        in_date,
+      </if>
+      <if test="bedNo != null" >
+        bed_no,
+      </if>
+      <if test="docId != null" >
+        doc_id,
+      </if>
+      <if test="nurseId != null" >
+        nurse_id,
+      </if>
+      <if test="preOutTime != null" >
+        pre_out_time,
+      </if>
+      <if test="outTime != null" >
+        out_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inId != null" >
+        #{inId,jdbcType=INTEGER},
+      </if>
+      <if test="mId != null" >
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="inState != null" >
+        #{inState,jdbcType=INTEGER},
+      </if>
+      <if test="inSex != null" >
+        #{inSex,jdbcType=INTEGER},
+      </if>
+      <if test="inAge != null" >
+        #{inAge,jdbcType=INTEGER},
+      </if>
+      <if test="inDate != null" >
+        #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bedNo != null" >
+        #{bedNo,jdbcType=INTEGER},
+      </if>
+      <if test="docId != null" >
+        #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="nurseId != null" >
+        #{nurseId,jdbcType=INTEGER},
+      </if>
+      <if test="preOutTime != null" >
+        #{preOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outTime != null" >
+        #{outTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.hisplat.bean.HIn" >
+    update h_in
+    <set >
+      <if test="mId != null" >
+        m_id = #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="inState != null" >
+        in_state = #{inState,jdbcType=INTEGER},
+      </if>
+      <if test="inSex != null" >
+        in_sex = #{inSex,jdbcType=INTEGER},
+      </if>
+      <if test="inAge != null" >
+        in_age = #{inAge,jdbcType=INTEGER},
+      </if>
+      <if test="inDate != null" >
+        in_date = #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bedNo != null" >
+        bed_no = #{bedNo,jdbcType=INTEGER},
+      </if>
+      <if test="docId != null" >
+        doc_id = #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="nurseId != null" >
+        nurse_id = #{nurseId,jdbcType=INTEGER},
+      </if>
+      <if test="preOutTime != null" >
+        pre_out_time = #{preOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outTime != null" >
+        out_time = #{outTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where in_id = #{inId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.hisplat.bean.HIn" >
+    update h_in
+    set
+     m_id = #{mId,jdbcType=INTEGER},
+      in_state = #{inState,jdbcType=INTEGER},
+      in_sex = #{inSex,jdbcType=INTEGER},
+      in_age = #{inAge,jdbcType=INTEGER},
+      in_date = #{inDate,jdbcType=TIMESTAMP},
+      bed_no = #{bedNo,jdbcType=INTEGER},
+      doc_id = #{docId,jdbcType=INTEGER},
+      nurse_id = #{nurseId,jdbcType=INTEGER},
+      pre_out_time = #{preOutTime,jdbcType=TIMESTAMP},
+      out_time = #{outTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where in_id = #{inId,jdbcType=INTEGER}
+  </update>
+  <update id="updateById" parameterType="com.mh.hisplat.bean.HIn" >
+    update h_in
+    <set >
+      <if test="mId != null" >
+        m_id = #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="inState != null" >
+        in_state = #{inState,jdbcType=INTEGER},
+      </if>
+      <if test="inSex != null" >
+        in_sex = #{inSex,jdbcType=INTEGER},
+      </if>
+      <if test="inAge != null" >
+        in_age = #{inAge,jdbcType=INTEGER},
+      </if>
+      <if test="inDate != null" >
+        in_date = #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bedNo != null" >
+        bed_no = #{bedNo,jdbcType=INTEGER},
+      </if>
+      <if test="docId != null" >
+        doc_id = #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="nurseId != null" >
+        nurse_id = #{nurseId,jdbcType=INTEGER},
+      </if>
+      <if test="preOutTime != null" >
+        pre_out_time = #{preOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outTime != null" >
+        out_time = #{outTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mAllergyHis != null" >
+        m_allergy_his,
+      </if>
+      <if test="diagnosticReportUrl != null" >
+        diagnostic_report_url,
+      </if>
+      <if test="mPatientCondition != null" >
+        m_patient_condition,
+      </if>
+      <if test="medicationInfo != null" >
+        medication_info,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+    </set>
+    where in_id = #{inId,jdbcType=INTEGER}
+  </update>
+</mapper>

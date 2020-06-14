@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.hisplat.dao.ReportMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.hisplat.bean.Report" >
+    <id column="r_id" property="rId" jdbcType="INTEGER" />
+    <result column="r_name" property="rName" jdbcType="VARCHAR" />
+    <result column="r_sex" property="rSex" jdbcType="INTEGER" />
+    <result column="r_age" property="rAge" jdbcType="INTEGER" />
+    <result column="r_diagnosis_type" property="rDiagnosisType" jdbcType="INTEGER" />
+    <result column="r_general_check" property="rGeneralCheck" jdbcType="VARCHAR" />
+    <result column="r_pathological_diagnosis" property="rPathologicalDiagnosis" jdbcType="VARCHAR" />
+    <result column="r_immune" property="rImmune" jdbcType="INTEGER" />
+    <result column="r_result" property="rResult" jdbcType="VARCHAR" />
+    <result column="r_physician" property="rPhysician" jdbcType="VARCHAR" />
+    <result column="r_check_physician" property="rCheckPhysician" jdbcType="VARCHAR" />
+    <result column="r_time" property="rTime" jdbcType="TIMESTAMP" />
+    <result column="r_describe" property="rDescribe" jdbcType="VARCHAR" />
+    <result column="r_division" property="rDivision" jdbcType="INTEGER" />
+    <result column="r_clinical_diagnosis" property="rClinicalDiagnosis" jdbcType="VARCHAR" />
+    <result column="d_id" property="dId" jdbcType="INTEGER" />
+    <result column="r_check_time" property="rCheckTime" jdbcType="TIMESTAMP" />
+    <result column="r_inspection_item" property="rInspectionItem" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.mh.hisplat.bean.Report" extends="BaseResultMap" >
+    <result column="r_mark" property="rMark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_id, r_name, r_sex, r_age, r_diagnosis_type, r_general_check, r_pathological_diagnosis, 
+    r_immune, r_result, r_physician, r_check_physician, r_time, r_describe, r_division, 
+    r_clinical_diagnosis, d_id, r_check_time, r_inspection_item
+  </sql>
+  <sql id="Blob_Column_List" >
+    r_mark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from report
+    where r_id = #{rId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from report
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mh.hisplat.bean.Report" >
+    insert into report (r_id, r_name, r_sex, 
+      r_age, r_diagnosis_type, r_general_check, 
+      r_pathological_diagnosis, r_immune, r_result, 
+      r_physician, r_check_physician, r_time, 
+      r_describe, r_division, r_clinical_diagnosis, 
+      d_id, r_check_time, r_inspection_item, 
+      r_mark)
+    values (#{rId,jdbcType=INTEGER}, #{rName,jdbcType=VARCHAR}, #{rSex,jdbcType=INTEGER}, 
+      #{rAge,jdbcType=INTEGER}, #{rDiagnosisType,jdbcType=INTEGER}, #{rGeneralCheck,jdbcType=VARCHAR}, 
+      #{rPathologicalDiagnosis,jdbcType=VARCHAR}, #{rImmune,jdbcType=INTEGER}, #{rResult,jdbcType=VARCHAR}, 
+      #{rPhysician,jdbcType=VARCHAR}, #{rCheckPhysician,jdbcType=VARCHAR}, #{rTime,jdbcType=TIMESTAMP}, 
+      #{rDescribe,jdbcType=VARCHAR}, #{rDivision,jdbcType=INTEGER}, #{rClinicalDiagnosis,jdbcType=VARCHAR}, 
+      #{dId,jdbcType=INTEGER}, #{rCheckTime,jdbcType=TIMESTAMP}, #{rInspectionItem,jdbcType=VARCHAR}, 
+      #{rMark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.hisplat.bean.Report" >
+    insert into report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="rName != null" >
+        r_name,
+      </if>
+      <if test="rSex != null" >
+        r_sex,
+      </if>
+      <if test="rAge != null" >
+        r_age,
+      </if>
+      <if test="rDiagnosisType != null" >
+        r_diagnosis_type,
+      </if>
+      <if test="rGeneralCheck != null" >
+        r_general_check,
+      </if>
+      <if test="rPathologicalDiagnosis != null" >
+        r_pathological_diagnosis,
+      </if>
+      <if test="rImmune != null" >
+        r_immune,
+      </if>
+      <if test="rResult != null" >
+        r_result,
+      </if>
+      <if test="rPhysician != null" >
+        r_physician,
+      </if>
+      <if test="rCheckPhysician != null" >
+        r_check_physician,
+      </if>
+      <if test="rTime != null" >
+        r_time,
+      </if>
+      <if test="rDescribe != null" >
+        r_describe,
+      </if>
+      <if test="rDivision != null" >
+        r_division,
+      </if>
+      <if test="rClinicalDiagnosis != null" >
+        r_clinical_diagnosis,
+      </if>
+      <if test="dId != null" >
+        d_id,
+      </if>
+      <if test="rCheckTime != null" >
+        r_check_time,
+      </if>
+      <if test="rInspectionItem != null" >
+        r_inspection_item,
+      </if>
+      <if test="rMark != null" >
+        r_mark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="rName != null" >
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rSex != null" >
+        #{rSex,jdbcType=INTEGER},
+      </if>
+      <if test="rAge != null" >
+        #{rAge,jdbcType=INTEGER},
+      </if>
+      <if test="rDiagnosisType != null" >
+        #{rDiagnosisType,jdbcType=INTEGER},
+      </if>
+      <if test="rGeneralCheck != null" >
+        #{rGeneralCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="rPathologicalDiagnosis != null" >
+        #{rPathologicalDiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="rImmune != null" >
+        #{rImmune,jdbcType=INTEGER},
+      </if>
+      <if test="rResult != null" >
+        #{rResult,jdbcType=VARCHAR},
+      </if>
+      <if test="rPhysician != null" >
+        #{rPhysician,jdbcType=VARCHAR},
+      </if>
+      <if test="rCheckPhysician != null" >
+        #{rCheckPhysician,jdbcType=VARCHAR},
+      </if>
+      <if test="rTime != null" >
+        #{rTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rDescribe != null" >
+        #{rDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="rDivision != null" >
+        #{rDivision,jdbcType=INTEGER},
+      </if>
+      <if test="rClinicalDiagnosis != null" >
+        #{rClinicalDiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="dId != null" >
+        #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="rCheckTime != null" >
+        #{rCheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rInspectionItem != null" >
+        #{rInspectionItem,jdbcType=VARCHAR},
+      </if>
+      <if test="rMark != null" >
+        #{rMark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.hisplat.bean.Report" >
+    update report
+    <set >
+      <if test="rName != null" >
+        r_name = #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rSex != null" >
+        r_sex = #{rSex,jdbcType=INTEGER},
+      </if>
+      <if test="rAge != null" >
+        r_age = #{rAge,jdbcType=INTEGER},
+      </if>
+      <if test="rDiagnosisType != null" >
+        r_diagnosis_type = #{rDiagnosisType,jdbcType=INTEGER},
+      </if>
+      <if test="rGeneralCheck != null" >
+        r_general_check = #{rGeneralCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="rPathologicalDiagnosis != null" >
+        r_pathological_diagnosis = #{rPathologicalDiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="rImmune != null" >
+        r_immune = #{rImmune,jdbcType=INTEGER},
+      </if>
+      <if test="rResult != null" >
+        r_result = #{rResult,jdbcType=VARCHAR},
+      </if>
+      <if test="rPhysician != null" >
+        r_physician = #{rPhysician,jdbcType=VARCHAR},
+      </if>
+      <if test="rCheckPhysician != null" >
+        r_check_physician = #{rCheckPhysician,jdbcType=VARCHAR},
+      </if>
+      <if test="rTime != null" >
+        r_time = #{rTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rDescribe != null" >
+        r_describe = #{rDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="rDivision != null" >
+        r_division = #{rDivision,jdbcType=INTEGER},
+      </if>
+      <if test="rClinicalDiagnosis != null" >
+        r_clinical_diagnosis = #{rClinicalDiagnosis,jdbcType=VARCHAR},
+      </if>
+      <if test="dId != null" >
+        d_id = #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="rCheckTime != null" >
+        r_check_time = #{rCheckTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rInspectionItem != null" >
+        r_inspection_item = #{rInspectionItem,jdbcType=VARCHAR},
+      </if>
+      <if test="rMark != null" >
+        r_mark = #{rMark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mh.hisplat.bean.Report" >
+    update report
+    set r_name = #{rName,jdbcType=VARCHAR},
+      r_sex = #{rSex,jdbcType=INTEGER},
+      r_age = #{rAge,jdbcType=INTEGER},
+      r_diagnosis_type = #{rDiagnosisType,jdbcType=INTEGER},
+      r_general_check = #{rGeneralCheck,jdbcType=VARCHAR},
+      r_pathological_diagnosis = #{rPathologicalDiagnosis,jdbcType=VARCHAR},
+      r_immune = #{rImmune,jdbcType=INTEGER},
+      r_result = #{rResult,jdbcType=VARCHAR},
+      r_physician = #{rPhysician,jdbcType=VARCHAR},
+      r_check_physician = #{rCheckPhysician,jdbcType=VARCHAR},
+      r_time = #{rTime,jdbcType=TIMESTAMP},
+      r_describe = #{rDescribe,jdbcType=VARCHAR},
+      r_division = #{rDivision,jdbcType=INTEGER},
+      r_clinical_diagnosis = #{rClinicalDiagnosis,jdbcType=VARCHAR},
+      d_id = #{dId,jdbcType=INTEGER},
+      r_check_time = #{rCheckTime,jdbcType=TIMESTAMP},
+      r_inspection_item = #{rInspectionItem,jdbcType=VARCHAR},
+      r_mark = #{rMark,jdbcType=LONGVARCHAR}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.hisplat.bean.Report" >
+    update report
+    set r_name = #{rName,jdbcType=VARCHAR},
+      r_sex = #{rSex,jdbcType=INTEGER},
+      r_age = #{rAge,jdbcType=INTEGER},
+      r_diagnosis_type = #{rDiagnosisType,jdbcType=INTEGER},
+      r_general_check = #{rGeneralCheck,jdbcType=VARCHAR},
+      r_pathological_diagnosis = #{rPathologicalDiagnosis,jdbcType=VARCHAR},
+      r_immune = #{rImmune,jdbcType=INTEGER},
+      r_result = #{rResult,jdbcType=VARCHAR},
+      r_physician = #{rPhysician,jdbcType=VARCHAR},
+      r_check_physician = #{rCheckPhysician,jdbcType=VARCHAR},
+      r_time = #{rTime,jdbcType=TIMESTAMP},
+      r_describe = #{rDescribe,jdbcType=VARCHAR},
+      r_division = #{rDivision,jdbcType=INTEGER},
+      r_clinical_diagnosis = #{rClinicalDiagnosis,jdbcType=VARCHAR},
+      d_id = #{dId,jdbcType=INTEGER},
+      r_check_time = #{rCheckTime,jdbcType=TIMESTAMP},
+      r_inspection_item = #{rInspectionItem,jdbcType=VARCHAR}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+</mapper>

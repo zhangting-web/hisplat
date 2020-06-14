@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.hisplat.dao.HospitalMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.hisplat.bean.Hospital" >
+    <id column="h_id" property="hId" jdbcType="INTEGER" />
+    <result column="h_name" property="hName" jdbcType="VARCHAR" />
+    <result column="h_level_id" property="hLevelId" jdbcType="INTEGER" />
+    <result column="h_province_code" property="hProvinceCode" jdbcType="INTEGER" />
+    <result column="h_city_code" property="hCityCode" jdbcType="INTEGER" />
+    <result column="h_address" property="hAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    h_id, h_name, h_level_id, h_province_code, h_city_code, h_address
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hospital
+    where h_id = #{hId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from hospital
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hospital
+    where h_id = #{hId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mh.hisplat.bean.Hospital" >
+    insert into hospital (h_id, h_name, h_level_id, 
+      h_province_code, h_city_code, h_address
+      )
+    values (#{hId,jdbcType=INTEGER}, #{hName,jdbcType=VARCHAR}, #{hLevelId,jdbcType=INTEGER}, 
+      #{hProvinceCode,jdbcType=INTEGER}, #{hCityCode,jdbcType=INTEGER}, #{hAddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.hisplat.bean.Hospital" >
+    insert into hospital
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hId != null" >
+        h_id,
+      </if>
+      <if test="hName != null" >
+        h_name,
+      </if>
+      <if test="hLevelId != null" >
+        h_level_id,
+      </if>
+      <if test="hProvinceCode != null" >
+        h_province_code,
+      </if>
+      <if test="hCityCode != null" >
+        h_city_code,
+      </if>
+      <if test="hAddress != null" >
+        h_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hId != null" >
+        #{hId,jdbcType=INTEGER},
+      </if>
+      <if test="hName != null" >
+        #{hName,jdbcType=VARCHAR},
+      </if>
+      <if test="hLevelId != null" >
+        #{hLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="hProvinceCode != null" >
+        #{hProvinceCode,jdbcType=INTEGER},
+      </if>
+      <if test="hCityCode != null" >
+        #{hCityCode,jdbcType=INTEGER},
+      </if>
+      <if test="hAddress != null" >
+        #{hAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.hisplat.bean.Hospital" >
+    update hospital
+    <set >
+      <if test="hName != null" >
+        h_name = #{hName,jdbcType=VARCHAR},
+      </if>
+      <if test="hLevelId != null" >
+        h_level_id = #{hLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="hProvinceCode != null" >
+        h_province_code = #{hProvinceCode,jdbcType=INTEGER},
+      </if>
+      <if test="hCityCode != null" >
+        h_city_code = #{hCityCode,jdbcType=INTEGER},
+      </if>
+      <if test="hAddress != null" >
+        h_address = #{hAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where h_id = #{hId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.hisplat.bean.Hospital" >
+    update hospital
+    set h_name = #{hName,jdbcType=VARCHAR},
+      h_level_id = #{hLevelId,jdbcType=INTEGER},
+      h_province_code = #{hProvinceCode,jdbcType=INTEGER},
+      h_city_code = #{hCityCode,jdbcType=INTEGER},
+      h_address = #{hAddress,jdbcType=VARCHAR}
+    where h_id = #{hId,jdbcType=INTEGER}
+  </update>
+</mapper>

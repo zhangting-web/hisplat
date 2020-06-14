@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.hisplat.dao.HOutMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.hisplat.bean.HOut" >
+    <id column="h_id" property="hId" jdbcType="INTEGER" />
+    <result column="h_name" property="hName" jdbcType="VARCHAR" />
+    <result column="h_sex" property="hSex" jdbcType="INTEGER" />
+    <result column="h_age" property="hAge" jdbcType="INTEGER" />
+    <result column="bed_no" property="bedNo" jdbcType="INTEGER" />
+    <result column="doc_id" property="docId" jdbcType="INTEGER" />
+    <result column="nurse_id" property="nurseId" jdbcType="INTEGER" />
+    <result column="in_date" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="d_id" property="dId" jdbcType="INTEGER" />
+    <result column="h_check" property="hCheck" jdbcType="INTEGER" />
+    <result column="h_out_time" property="hOutTime" jdbcType="TIMESTAMP" />
+    <result column="h_diadnostic_symptom" property="hDiadnosticSymptom" jdbcType="VARCHAR" />
+    <result column="h_operation" property="hOperation" jdbcType="VARCHAR" />
+    <result column="h_condition" property="hCondition" jdbcType="VARCHAR" />
+    <result column="h_mark" property="hMark" jdbcType="VARCHAR" />
+    <result column="h_check_physician" property="hCheckPhysician" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    h_id, h_name, h_sex, h_age, bed_no, doc_id, nurse_id, in_date, d_id, h_check, h_out_time, 
+    h_diadnostic_symptom, h_operation, h_condition, h_mark, h_check_physician
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from h_out
+    where h_id = #{hId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from h_out
+    where h_id = #{hId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mh.hisplat.bean.HOut" >
+    insert into h_out (h_id, h_name, h_sex, 
+      h_age, bed_no, doc_id, 
+      nurse_id, in_date, d_id, 
+      h_check, h_out_time, h_diadnostic_symptom, 
+      h_operation, h_condition, h_mark, 
+      h_check_physician)
+    values (#{hId,jdbcType=INTEGER}, #{hName,jdbcType=VARCHAR}, #{hSex,jdbcType=INTEGER}, 
+      #{hAge,jdbcType=INTEGER}, #{bedNo,jdbcType=INTEGER}, #{docId,jdbcType=INTEGER}, 
+      #{nurseId,jdbcType=INTEGER}, #{inDate,jdbcType=TIMESTAMP}, #{dId,jdbcType=INTEGER}, 
+      #{hCheck,jdbcType=INTEGER}, #{hOutTime,jdbcType=TIMESTAMP}, #{hDiadnosticSymptom,jdbcType=VARCHAR}, 
+      #{hOperation,jdbcType=VARCHAR}, #{hCondition,jdbcType=VARCHAR}, #{hMark,jdbcType=VARCHAR}, 
+      #{hCheckPhysician,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.hisplat.bean.HOut" >
+    insert into h_out
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hId != null" >
+        h_id,
+      </if>
+      <if test="hName != null" >
+        h_name,
+      </if>
+      <if test="hSex != null" >
+        h_sex,
+      </if>
+      <if test="hAge != null" >
+        h_age,
+      </if>
+      <if test="bedNo != null" >
+        bed_no,
+      </if>
+      <if test="docId != null" >
+        doc_id,
+      </if>
+      <if test="nurseId != null" >
+        nurse_id,
+      </if>
+      <if test="inDate != null" >
+        in_date,
+      </if>
+      <if test="dId != null" >
+        d_id,
+      </if>
+      <if test="hCheck != null" >
+        h_check,
+      </if>
+      <if test="hOutTime != null" >
+        h_out_time,
+      </if>
+      <if test="hDiadnosticSymptom != null" >
+        h_diadnostic_symptom,
+      </if>
+      <if test="hOperation != null" >
+        h_operation,
+      </if>
+      <if test="hCondition != null" >
+        h_condition,
+      </if>
+      <if test="hMark != null" >
+        h_mark,
+      </if>
+      <if test="hCheckPhysician != null" >
+        h_check_physician,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hId != null" >
+        #{hId,jdbcType=INTEGER},
+      </if>
+      <if test="hName != null" >
+        #{hName,jdbcType=VARCHAR},
+      </if>
+      <if test="hSex != null" >
+        #{hSex,jdbcType=INTEGER},
+      </if>
+      <if test="hAge != null" >
+        #{hAge,jdbcType=INTEGER},
+      </if>
+      <if test="bedNo != null" >
+        #{bedNo,jdbcType=INTEGER},
+      </if>
+      <if test="docId != null" >
+        #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="nurseId != null" >
+        #{nurseId,jdbcType=INTEGER},
+      </if>
+      <if test="inDate != null" >
+        #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dId != null" >
+        #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="hCheck != null" >
+        #{hCheck,jdbcType=INTEGER},
+      </if>
+      <if test="hOutTime != null" >
+        #{hOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hDiadnosticSymptom != null" >
+        #{hDiadnosticSymptom,jdbcType=VARCHAR},
+      </if>
+      <if test="hOperation != null" >
+        #{hOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="hCondition != null" >
+        #{hCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="hMark != null" >
+        #{hMark,jdbcType=VARCHAR},
+      </if>
+      <if test="hCheckPhysician != null" >
+        #{hCheckPhysician,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.hisplat.bean.HOut" >
+    update h_out
+    <set >
+      <if test="hName != null" >
+        h_name = #{hName,jdbcType=VARCHAR},
+      </if>
+      <if test="hSex != null" >
+        h_sex = #{hSex,jdbcType=INTEGER},
+      </if>
+      <if test="hAge != null" >
+        h_age = #{hAge,jdbcType=INTEGER},
+      </if>
+      <if test="bedNo != null" >
+        bed_no = #{bedNo,jdbcType=INTEGER},
+      </if>
+      <if test="docId != null" >
+        doc_id = #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="nurseId != null" >
+        nurse_id = #{nurseId,jdbcType=INTEGER},
+      </if>
+      <if test="inDate != null" >
+        in_date = #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dId != null" >
+        d_id = #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="hCheck != null" >
+        h_check = #{hCheck,jdbcType=INTEGER},
+      </if>
+      <if test="hOutTime != null" >
+        h_out_time = #{hOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hDiadnosticSymptom != null" >
+        h_diadnostic_symptom = #{hDiadnosticSymptom,jdbcType=VARCHAR},
+      </if>
+      <if test="hOperation != null" >
+        h_operation = #{hOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="hCondition != null" >
+        h_condition = #{hCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="hMark != null" >
+        h_mark = #{hMark,jdbcType=VARCHAR},
+      </if>
+      <if test="hCheckPhysician != null" >
+        h_check_physician = #{hCheckPhysician,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where h_id = #{hId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.hisplat.bean.HOut" >
+    update h_out
+    set h_name = #{hName,jdbcType=VARCHAR},
+      h_sex = #{hSex,jdbcType=INTEGER},
+      h_age = #{hAge,jdbcType=INTEGER},
+      bed_no = #{bedNo,jdbcType=INTEGER},
+      doc_id = #{docId,jdbcType=INTEGER},
+      nurse_id = #{nurseId,jdbcType=INTEGER},
+      in_date = #{inDate,jdbcType=TIMESTAMP},
+      d_id = #{dId,jdbcType=INTEGER},
+      h_check = #{hCheck,jdbcType=INTEGER},
+      h_out_time = #{hOutTime,jdbcType=TIMESTAMP},
+      h_diadnostic_symptom = #{hDiadnosticSymptom,jdbcType=VARCHAR},
+      h_operation = #{hOperation,jdbcType=VARCHAR},
+      h_condition = #{hCondition,jdbcType=VARCHAR},
+      h_mark = #{hMark,jdbcType=VARCHAR},
+      h_check_physician = #{hCheckPhysician,jdbcType=VARCHAR}
+    where h_id = #{hId,jdbcType=INTEGER}
+  </update>
+</mapper>

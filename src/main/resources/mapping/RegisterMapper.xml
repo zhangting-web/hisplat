@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mh.hisplat.dao.RegisterMapper" >
+  <resultMap id="BaseResultMap" type="com.mh.hisplat.bean.Register" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="d_id" property="dId" jdbcType="INTEGER" />
+    <result column="r_name" property="rName" jdbcType="VARCHAR" />
+    <result column="r_sex" property="rSex" jdbcType="INTEGER" />
+    <result column="r_type" property="rType" jdbcType="INTEGER" />
+    <result column="r_appointment_time" property="rAppointmentTime" jdbcType="TIMESTAMP" />
+    <result column="doc_id" property="docId" jdbcType="INTEGER" />
+    <result column="r_state" property="rState" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="h_id" property="hId" jdbcType="INTEGER" />
+    <result column="u_id" property="uId" jdbcType="INTEGER" />
+    <result column="r_age" property="rAge" jdbcType="INTEGER" />
+    <result column="h_name" property="hName" />
+    <result column="doc_name" property="docName" />
+    <result column="del_flag" property="delFlag" />
+    <result column="phone" property="phone" />
+    <result column="address" property="address" />
+    <result column="depart_name" property="departName" />
+    <result column="rsex_name" property="rSexName" />
+
+
+
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.mh.hisplat.bean.Register" extends="BaseResultMap" >
+    <result column="r_patient_condition" property="rPatientCondition" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, register.d_id, r_name, register.r_sex, register.r_type, register.r_appointment_time, register.doc_id, register.r_state, register.create_time,
+    register.update_time, register.pay_time, register.h_id, register.u_id, register.r_age
+  </sql>
+  <sql id="Blob_Column_List" >
+    r_patient_condition
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"  >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    ,user.phone,user.address,department.d_name depart_name
+    from register,user,department
+    where register.u_id=user.u_id and register.d_id=department.d_id
+    and register.id = #{id}
+  </select>
+  <select id="selectDocBynamelist" resultMap="ResultMapWithBLOBs"  >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    ,user.phone,user.address,department.d_name depart_name
+    from register,user,department
+    where register.u_id=user.u_id and register.d_id=department.d_id
+    and register.r_name=#{rName}
+  </select>
+  <select id="selectByRegister" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    ,hospital.h_name,user.name doc_name
+    from register left join  hospital on register.h_id=hospital.h_id
+    left join user on register.doc_id=user.u_id
+    <where>
+      <if test="rName != null" >
+      and  r_name=#{rName}
+      </if>
+      <if test="uId != null" >
+        and  register.u_Id=#{uId}
+      </if>
+      <if test="docId != null" >
+        and  doc_id=#{docId}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from register
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mh.hisplat.bean.Register" >
+    insert into register (id, d_id, r_name,
+      r_sex, r_type, r_appointment_time, 
+      doc_id, r_state, create_time, 
+      update_time, pay_time, h_id, 
+      u_id, r_age, r_patient_condition
+      )
+    values (#{id,jdbcType=VARCHAR}, #{dId,jdbcType=INTEGER}, #{rName,jdbcType=VARCHAR},
+      #{rSex,jdbcType=INTEGER}, #{rType,jdbcType=INTEGER}, #{rAppointmentTime,jdbcType=TIMESTAMP}, 
+      #{docId,jdbcType=INTEGER}, #{rState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP}, #{hId,jdbcType=INTEGER}, 
+      #{uId,jdbcType=INTEGER}, #{rAge,jdbcType=INTEGER}, #{rPatientCondition,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mh.hisplat.bean.Register" >
+    insert into register
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dId != null" >
+        d_id,
+      </if>
+      <if test="rName != null" >
+        r_name,
+      </if>
+      <if test="rSex != null" >
+        r_sex,
+      </if>
+      <if test="rType != null" >
+        r_type,
+      </if>
+      <if test="rAppointmentTime != null" >
+        r_appointment_time,
+      </if>
+      <if test="docId != null" >
+        doc_id,
+      </if>
+      <if test="rState != null" >
+        r_state,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="hId != null" >
+        h_id,
+      </if>
+      <if test="uId != null" >
+        u_id,
+      </if>
+      <if test="rAge != null" >
+        r_age,
+      </if>
+      <if test="rPatientCondition != null" >
+        r_patient_condition,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dId != null" >
+        #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="rName != null" >
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rSex != null" >
+        #{rSex,jdbcType=INTEGER},
+      </if>
+      <if test="rType != null" >
+        #{rType,jdbcType=INTEGER},
+      </if>
+      <if test="rAppointmentTime != null" >
+        #{rAppointmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docId != null" >
+        #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="rState != null" >
+        #{rState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hId != null" >
+        #{hId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="rAge != null" >
+        #{rAge,jdbcType=INTEGER},
+      </if>
+      <if test="rPatientCondition != null" >
+        #{rPatientCondition,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mh.hisplat.bean.Register" >
+    update register
+    <set >
+      <if test="dId != null" >
+        d_id = #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="rName != null" >
+        r_name = #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rSex != null" >
+        r_sex = #{rSex,jdbcType=INTEGER},
+      </if>
+      <if test="rType != null" >
+        r_type = #{rType,jdbcType=INTEGER},
+      </if>
+      <if test="rAppointmentTime != null" >
+        r_appointment_time = #{rAppointmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docId != null" >
+        doc_id = #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="rState != null" >
+        r_state = #{rState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hId != null" >
+        h_id = #{hId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="rAge != null" >
+        r_age = #{rAge,jdbcType=INTEGER},
+      </if>
+      <if test="rPatientCondition != null" >
+        r_patient_condition = #{rPatientCondition,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mh.hisplat.bean.Register" >
+    update register
+    set d_id = #{dId,jdbcType=INTEGER},
+      r_name = #{rName,jdbcType=VARCHAR},
+      r_sex = #{rSex,jdbcType=INTEGER},
+      r_type = #{rType,jdbcType=INTEGER},
+      r_appointment_time = #{rAppointmentTime,jdbcType=TIMESTAMP},
+      doc_id = #{docId,jdbcType=INTEGER},
+      r_state = #{rState,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      h_id = #{hId,jdbcType=INTEGER},
+      u_id = #{uId,jdbcType=INTEGER},
+      r_age = #{rAge,jdbcType=INTEGER},
+      r_patient_condition = #{rPatientCondition,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mh.hisplat.bean.Register" >
+    update register
+    set d_id = #{dId,jdbcType=INTEGER},
+      r_name = #{rName,jdbcType=VARCHAR},
+      r_sex = #{rSex,jdbcType=INTEGER},
+      r_type = #{rType,jdbcType=INTEGER},
+      r_appointment_time = #{rAppointmentTime,jdbcType=TIMESTAMP},
+      doc_id = #{docId,jdbcType=INTEGER},
+      r_state = #{rState,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      h_id = #{hId,jdbcType=INTEGER},
+      u_id = #{uId,jdbcType=INTEGER},
+      r_age = #{rAge,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeys" parameterType="com.mh.hisplat.bean.Register" >
+    update register
+    <set >
+      <if test="dId != null" >
+        d_id = #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="rName != null" >
+        r_name = #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rSex != null" >
+        r_sex = #{rSex,jdbcType=INTEGER},
+      </if>
+      <if test="rType != null" >
+        r_type = #{rType,jdbcType=INTEGER},
+      </if>
+      <if test="rAppointmentTime != null" >
+        r_appointment_time = #{rAppointmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docId != null" >
+        doc_id = #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="rState != null" >
+        r_state = #{rState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hId != null" >
+        h_id = #{hId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="rAge != null" >
+        r_age = #{rAge,jdbcType=INTEGER},
+      </if>
+      <if test="rPatientCondition != null" >
+        r_patient_condition = #{rPatientCondition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="delFlag !=null">
+        del_flag=#{delFlag}
+      </if>
+    </set>
+    <where>
+      <if test="ids !=null">
+      and id in
+        <foreach collection="ids" item="id" open="(" separator="," close= ")">
+          #{id}
+        </foreach>
+      </if>
+    </where>
+  </update>
+</mapper>
