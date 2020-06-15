@@ -1,4 +1,4 @@
-# hisplat1
+# hisplat
 开发环境：Spring MVC+Spring+MyBatis、JDBC、mysq、postman、redis、idea/ Eclipse/MyEclipse
 本系统是一个面向大众用户和医护工作者的健康诊疗平台，为患者提供网上挂号、在线问诊、诊断报告查询、
 线上复诊,网络预约手术、住院出院手续办理、费用缴纳、查看健康资讯等全方位服务，同时也为医护工作人
