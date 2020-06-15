@@ -18,10 +18,12 @@
     <result column="h_condition" property="hCondition" jdbcType="VARCHAR" />
     <result column="h_mark" property="hMark" jdbcType="VARCHAR" />
     <result column="h_check_physician" property="hCheckPhysician" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     h_id, h_name, h_sex, h_age, bed_no, doc_id, nurse_id, in_date, d_id, h_check, h_out_time, 
-    h_diadnostic_symptom, h_operation, h_condition, h_mark, h_check_physician
+    h_diadnostic_symptom, h_operation, h_condition, h_mark, h_check_physician,create_time,update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -34,18 +36,19 @@
     where h_id = #{hId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.mh.hisplat.bean.HOut" >
-    insert into h_out (h_id, h_name, h_sex, 
+    insert into h_out ( h_name, h_sex,
       h_age, bed_no, doc_id, 
       nurse_id, in_date, d_id, 
       h_check, h_out_time, h_diadnostic_symptom, 
       h_operation, h_condition, h_mark, 
-      h_check_physician)
-    values (#{hId,jdbcType=INTEGER}, #{hName,jdbcType=VARCHAR}, #{hSex,jdbcType=INTEGER}, 
+      h_check_physician,create_time,update_time)
+    values (#{hName,jdbcType=VARCHAR}, #{hSex,jdbcType=INTEGER},
       #{hAge,jdbcType=INTEGER}, #{bedNo,jdbcType=INTEGER}, #{docId,jdbcType=INTEGER}, 
       #{nurseId,jdbcType=INTEGER}, #{inDate,jdbcType=TIMESTAMP}, #{dId,jdbcType=INTEGER}, 
       #{hCheck,jdbcType=INTEGER}, #{hOutTime,jdbcType=TIMESTAMP}, #{hDiadnosticSymptom,jdbcType=VARCHAR}, 
       #{hOperation,jdbcType=VARCHAR}, #{hCondition,jdbcType=VARCHAR}, #{hMark,jdbcType=VARCHAR}, 
-      #{hCheckPhysician,jdbcType=VARCHAR})
+      #{hCheckPhysician,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.mh.hisplat.bean.HOut" >
     insert into h_out
@@ -220,4 +223,118 @@
       h_check_physician = #{hCheckPhysician,jdbcType=VARCHAR}
     where h_id = #{hId,jdbcType=INTEGER}
   </update>
+  <update id="updateById" parameterType="com.mh.hisplat.bean.HOut" >
+    update h_out
+    <set >
+      <if test="hName != null" >
+        h_name = #{hName,jdbcType=VARCHAR},
+      </if>
+      <if test="hSex != null" >
+        h_sex = #{hSex,jdbcType=INTEGER},
+      </if>
+      <if test="hAge != null" >
+        h_age = #{hAge,jdbcType=INTEGER},
+      </if>
+      <if test="bedNo != null" >
+        bed_no = #{bedNo,jdbcType=INTEGER},
+      </if>
+      <if test="docId != null" >
+        doc_id = #{docId,jdbcType=INTEGER},
+      </if>
+      <if test="nurseId != null" >
+        nurse_id = #{nurseId,jdbcType=INTEGER},
+      </if>
+      <if test="inDate != null" >
+        in_date = #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dId != null" >
+        d_id = #{dId,jdbcType=INTEGER},
+      </if>
+      <if test="hCheck != null" >
+        h_check = #{hCheck,jdbcType=INTEGER},
+      </if>
+      <if test="hOutTime != null" >
+        h_out_time = #{hOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hDiadnosticSymptom != null" >
+        h_diadnostic_symptom = #{hDiadnosticSymptom,jdbcType=VARCHAR},
+      </if>
+      <if test="hOperation != null" >
+        h_operation = #{hOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="hCondition != null" >
+        h_condition = #{hCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="hMark != null" >
+        h_mark = #{hMark,jdbcType=VARCHAR},
+      </if>
+      <if test="hCheckPhysician != null" >
+        h_check_physician = #{hCheckPhysician,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where h_id = #{hId,jdbcType=INTEGER}
+  </update>
+  <delete id="del"  >
+    delete from h_out
+    <where>
+      <if test="ids !=null">
+        and h_id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+    </where>
+  </delete>
+  <select id="selectList" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from h_out
+    <where>
+      <if test="hName != null" >
+        and h_name = #{hName}
+      </if>
+      <if test="hSex != null" >
+        and h_sex = #{hSex}
+      </if>
+      <if test="hAge != null" >
+        and h_age = #{hAge}
+      </if>
+      <if test="bedNo != null" >
+        and bed_no = #{bedNo}
+      </if>
+      <if test="docId != null" >
+        and doc_id = #{docId}
+      </if>
+      <if test="nurseId != null" >
+        and nurse_id = #{nurseId}
+      </if>
+      <if test="inDate != null" >
+        and in_date = #{inDate}
+      </if>
+      <if test="dId != null" >
+        and d_id = #{dId}
+      </if>
+      <if test="hCheck != null" >
+        and h_check = #{hCheck}
+      </if>
+      <if test="hOutTime != null" >
+        and h_out_time = #{hOutTime}
+      </if>
+      <if test="hDiadnosticSymptom != null" >
+        and h_diadnostic_symptom = #{hDiadnosticSymptom}
+      </if>
+      <if test="hOperation != null" >
+        and h_operation = #{hOperation}
+      </if>
+      <if test="hCondition != null" >
+        and h_condition = #{hCondition}
+      </if>
+      <if test="hMark != null" >
+        and h_mark = #{hMark}
+      </if>
+      <if test="hCheckPhysician != null" >
+        and h_check_physician = #{hCheckPhysician}
+      </if>
+    </where>
+  </select>
 </mapper>

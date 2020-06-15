@@ -27,6 +27,16 @@ public class HOut {
 
     private String hDiadnosticSymptom;
 
+    private Integer inPhone;
+
+    public Integer getInPhone() {
+        return inPhone;
+    }
+
+    public void setInPhone(Integer inPhone) {
+        this.inPhone = inPhone;
+    }
+
     private String hOperation;
 
     private String hCondition;
@@ -34,6 +44,26 @@ public class HOut {
     private String hMark;
 
     private String hCheckPhysician;
+
+    private Date createTime;
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    private Date updateTime;
 
     public Integer gethId() {
         return hId;
@@ -162,4 +192,6 @@ public class HOut {
     public void sethCheckPhysician(String hCheckPhysician) {
         this.hCheckPhysician = hCheckPhysician == null ? null : hCheckPhysician.trim();
     }
+
+
 }

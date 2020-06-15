@@ -3,8 +3,9 @@ package com.mh.hisplat.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mh.hisplat.bean.HIn;
-import com.mh.hisplat.dao.HInMapper;
-import com.mh.hisplat.service.HinService;
+import com.mh.hisplat.bean.HOut;
+import com.mh.hisplat.dao.HOutMapper;
+import com.mh.hisplat.service.HOutService;
 import com.mh.hisplat.utils.PageRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +16,25 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class HinServiceImpl implements HinService {
+public class HOutServiceImpl  implements HOutService {
     @Autowired
-    private HInMapper hinMapper;
+    private HOutMapper hOutMapper;
     @Override
-    public void add(HIn hin) {
-        log.warn("添加住院信息");
-        hin.setCreateTime(new Date());
-        hin.setUpdateTime(new Date());
-        hinMapper.insert(hin);
+    public void add(HOut hOut) {
+        log.warn("添加出院信息");
+        hOut.setCreateTime(new Date());
+        hOut.setUpdateTime(new Date());
+        hOutMapper.insert(hOut);
     }
 
     @Override
-    public void updateById(HIn hin) {
-            if(null==hin||null==hin.getinId()){
-                return;
-            }
-        hinMapper.updateById(hin);
+    public void updateById(HOut hOut) {
+
+        if (null == hOut || null == hOut.gethId()) {
+            return;
+        }
+        hOutMapper.updateById(hOut);
+
 
     }
 
@@ -40,13 +43,13 @@ public class HinServiceImpl implements HinService {
         if(null==ids ||ids.isEmpty()){
             return;
         }
-        hinMapper.del(ids);
+        hOutMapper.del(ids);
     }
 
     @Override
-    public PageInfo selectPageByname(HIn hin, PageRequest pageRequest) {
+    public PageInfo selectPageByname(HOut hOut, PageRequest pageRequest) {
         PageHelper.startPage(pageRequest.getPageNo(), pageRequest.getPageSize());
-        List<HIn> list= hinMapper.selectList(hin);
+        List<HOut> list= hOutMapper.selectList(hOut);
         return new PageInfo(list);
     }
 }
