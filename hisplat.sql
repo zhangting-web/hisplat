@@ -3685,6 +3685,11 @@ CREATE TABLE `h_out`  (
   `h_check_physician` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '核准医师',
   PRIMARY KEY (`h_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '出院管理' ROW_FORMAT = Dynamic;
+-- ----------------------------
+-- Records of h_out
+-- ----------------------------
+INSERT INTO `h_out` VALUES (2, '小李', 0, 16, 3024, 11, 8, '2020-05-28 09:00:00', 6, 0, '2020-05-29 10:10:00', '感冒，咳嗽，流鼻涕', '无', '良好', NULL, '李医生', '2020-06-15 18:16:05', '2020-06-15 18:16:05');
+INSERT INTO `h_out` VALUES (4, '小王', 0, 16, 3024, 11, 8, '2020-05-28 09:00:00', 6, 0, '2020-05-29 10:10:00', '感冒，咳嗽，流鼻涕', '无', '良好', '无', '李医生', '2020-06-15 18:21:45', '2020-06-15 18:21:45');
 
 -- ----------------------------
 -- Table structure for hospital
